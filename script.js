@@ -1,170 +1,131 @@
-/* ===============================
-      GLOW EFFECTS
-================================= */
+/* ===========================
+   PHOTO SLIDESHOW
+=========================== */
 
-.glass{
+const photos = [
+    "photo1.jpg",
+    "photo2.jpg",
+    "photo3.jpg",
+    "photo4.jpg",
+    "photo5.jpg",
+    "photo6.jpg",
+    "photo7.jpg",
+    "photo8.jpg",
+    "photo9.jpg",
+    "photo10.jpg"
+];
 
-    animation:glow 3s infinite alternate;
+let current = 0;
 
+const slide = document.getElementById("slideImage");
+const dots = document.querySelectorAll(".dot");
+
+function showSlide(index){
+
+    if(index >= photos.length){
+        current = 0;
+    }else if(index < 0){
+        current = photos.length - 1;
+    }else{
+        current = index;
+    }
+
+    slide.src = photos[current];
+
+    dots.forEach(dot => dot.classList.remove("active"));
+    dots[current].classList.add("active");
 }
 
-@keyframes glow{
+function nextSlide(){
+    showSlide(current + 1);
+}
 
-    from{
+function prevSlide(){
+    showSlide(current - 1);
+}
 
-        box-shadow:0 0 20px rgba(0,220,255,.35);
+setInterval(nextSlide,3000);
+
+/* ===========================
+   TYPEWRITER
+=========================== */
+
+const message =
+`Happy Birthday My Gopzz ❤️
+
+May your birthday be filled with happiness,
+love, laughter and beautiful memories.
+
+You are truly special to me.
+
+Happy Birthday My Frozen Princess ❄️💙`;
+
+const typing = document.getElementById("typing");
+
+let letter = 0;
+
+function typeWriter(){
+
+    if(letter < message.length){
+
+        typing.innerHTML += message.charAt(letter);
+
+        letter++;
+
+        setTimeout(typeWriter,40);
 
     }
 
-    to{
+}
 
-        box-shadow:0 0 45px rgba(0,220,255,.75);
+typeWriter();
+
+/* ===========================
+   COUNTDOWN
+=========================== */
+
+const birthday = new Date("July 3, 2026 00:00:00").getTime();
+
+const countdown = document.getElementById("countdown");
+
+setInterval(()=>{
+
+    const now = new Date().getTime();
+
+    const distance = birthday - now;
+
+    if(distance < 0){
+
+        countdown.innerHTML = "🎉 Happy Birthday Gopzz ❤️";
+
+        return;
 
     }
 
-}
+    const d = Math.floor(distance/(1000*60*60*24));
 
-/* ===============================
-      IMAGE EFFECT
-================================= */
+    const h = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
 
-#slideImage:hover{
+    const m = Math.floor((distance%(1000*60*60))/60000);
 
-    transform:scale(1.04);
+    const s = Math.floor((distance%60000)/1000);
 
-    box-shadow:0 0 40px rgba(255,255,255,.8);
+    countdown.innerHTML =
+    `${d} Days ${h} Hours ${m} Minutes ${s} Seconds`;
 
-}
-
-/* ===============================
-      SCROLLBAR
-================================= */
-
-::-webkit-scrollbar{
-
-    width:10px;
-
-}
-
-::-webkit-scrollbar-track{
-
-    background:#02121f;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-    background:#39d9ff;
-
-    border-radius:10px;
-
-}
-
-/* ===============================
-      MOBILE
-================================= */
-
-@media(max-width:900px){
-
-.glass{
-
-    padding:25px;
-
-}
-
-.glass h1{
-
-    font-size:52px;
-
-}
-
-.glass h2{
-
-    font-size:25px;
-
-}
-
-#typing{
-
-    font-size:17px;
-
-}
-
-#countdown{
-
-    font-size:22px;
-
-}
-
-.slideshow{
-
-    flex-direction:column;
-
-}
-
-#slideImage{
-
-    width:95%;
-
-    max-width:320px;
-
-    height:420px;
-
-}
-
-.nav{
-
-    width:50px;
-
-    height:50px;
-
-    font-size:22px;
-
-}
-
-.popup-content{
-
-    padding:25px;
-
-}
-
-.popup-content p{
-
-    font-size:16px;
-
-}
-
-#giftBtn,
-#musicBtn{
-
-    width:100%;
-
-}
-
-}
-
-/* ===============================
-      FOOTER SPACE
-================================= */
-
-.hero{
-
-    padding-bottom:80px;
-
-}
-/* ===================================
-      MUSIC PLAYER
-=================================== */
+},1000);
+/* ===========================
+   MUSIC PLAYER
+=========================== */
 
 const music = document.getElementById("music");
-
 const musicBtn = document.getElementById("musicBtn");
 
 let playing = false;
 
-musicBtn.addEventListener("click", () => {
+musicBtn.addEventListener("click", function(){
 
-    if (!playing) {
+    if(!playing){
 
         music.play();
 
@@ -172,7 +133,7 @@ musicBtn.addEventListener("click", () => {
 
         playing = true;
 
-    } else {
+    }else{
 
         music.pause();
 
@@ -185,45 +146,39 @@ musicBtn.addEventListener("click", () => {
 });
 
 
-/* ===================================
-      GIFT POPUP
-=================================== */
+/* ===========================
+   GIFT POPUP
+=========================== */
 
 const giftBtn = document.getElementById("giftBtn");
-
 const popup = document.getElementById("giftPopup");
-
 const closePopup = document.getElementById("closePopup");
 
-giftBtn.onclick = () => {
+giftBtn.onclick = function(){
 
     popup.style.display = "flex";
 
     confetti({
 
-        particleCount: 250,
+        particleCount:200,
 
-        spread: 120,
+        spread:120,
 
-        origin: {
-
-            y: 0.6
-
-        }
+        origin:{ y:0.6 }
 
     });
 
 };
 
-closePopup.onclick = () => {
+closePopup.onclick = function(){
 
     popup.style.display = "none";
 
 };
 
-window.onclick = (e) => {
+window.onclick = function(event){
 
-    if (e.target == popup) {
+    if(event.target == popup){
 
         popup.style.display = "none";
 
@@ -232,11 +187,11 @@ window.onclick = (e) => {
 };
 
 
-/* ===================================
-      FALLING SNOW
-=================================== */
+/* ===========================
+   FALLING SNOW
+=========================== */
 
-function createSnow() {
+function createSnow(){
 
     const snow = document.createElement("div");
 
@@ -244,30 +199,30 @@ function createSnow() {
 
     snow.innerHTML = "❄";
 
-    snow.style.left = Math.random() * window.innerWidth + "px";
+    snow.style.left = Math.random()*window.innerWidth + "px";
 
-    snow.style.fontSize = (10 + Math.random() * 20) + "px";
+    snow.style.fontSize = (10 + Math.random()*18) + "px";
 
-    snow.style.animationDuration = (5 + Math.random() * 5) + "s";
+    snow.style.animationDuration = (5 + Math.random()*5) + "s";
 
     document.getElementById("snow").appendChild(snow);
 
-    setTimeout(() => {
+    setTimeout(function(){
 
         snow.remove();
 
-    }, 10000);
+    },10000);
 
 }
 
-setInterval(createSnow, 180);
+setInterval(createSnow,180);
 
 
-/* ===================================
-      FLOATING HEARTS
-=================================== */
+/* ===========================
+   FLOATING HEARTS
+=========================== */
 
-function createHeart() {
+function createHeart(){
 
     const heart = document.createElement("div");
 
@@ -275,38 +230,60 @@ function createHeart() {
 
     heart.innerHTML = "💙";
 
-    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.left = Math.random()*window.innerWidth + "px";
 
-    heart.style.fontSize = (18 + Math.random() * 22) + "px";
+    heart.style.fontSize = (18 + Math.random()*20) + "px";
 
-    heart.style.animationDuration = (5 + Math.random() * 4) + "s";
+    heart.style.animationDuration = (5 + Math.random()*4) + "s";
 
     document.getElementById("hearts").appendChild(heart);
 
-    setTimeout(() => {
+    setTimeout(function(){
 
         heart.remove();
 
-    }, 9000);
+    },9000);
 
 }
 
-setInterval(createHeart, 700);
-/* ===================================
-      FIREWORKS
-=================================== */
+setInterval(createHeart,700);
+/* ===========================
+   PAGE LOAD CONFETTI
+=========================== */
 
-function launchFireworks() {
+window.addEventListener("load", function(){
+
+    if(typeof confetti === "function"){
+
+        confetti({
+            particleCount: 180,
+            spread: 100,
+            origin: { y: 0.6 }
+        });
+
+    }
+
+});
+
+/* ===========================
+   FIREWORKS
+=========================== */
+
+function launchFireworks(){
+
+    if(typeof confetti !== "function") return;
 
     confetti({
 
-        particleCount:120,
+        particleCount:80,
 
-        spread:100,
+        spread:70,
+
+        startVelocity:45,
 
         origin:{
             x:Math.random(),
-            y:Math.random()*0.6
+            y:Math.random()*0.5
         }
 
     });
@@ -316,135 +293,65 @@ function launchFireworks() {
 setInterval(launchFireworks,6000);
 
 
-/* ===================================
-      PAGE LOAD CONFETTI
-=================================== */
+/* ===========================
+   IMAGE FADE EFFECT
+=========================== */
 
-window.addEventListener("load",()=>{
+setInterval(function(){
 
-    confetti({
+    slide.style.opacity="0.5";
 
-        particleCount:200,
+    setTimeout(function(){
 
-        spread:140,
+        slide.style.opacity="1";
 
-        origin:{
-            y:0.6
-        }
-
-    });
-
-});
-
-
-/* ===================================
-      CARD GLOW
-=================================== */
-
-const glass=document.querySelector(".glass");
-
-setInterval(()=>{
-
-glass.style.boxShadow=
-
-`0 0 ${25+Math.random()*25}px rgba(0,220,255,.8)`;
-
-},1200);
-
-
-/* ===================================
-      IMAGE FADE EFFECT
-=================================== */
-
-setInterval(()=>{
-
-slide.style.opacity="0.5";
-
-setTimeout(()=>{
-
-slide.style.opacity="1";
-
-},300);
+    },300);
 
 },3000);
 
 
-/* ===================================
-      MUSIC AUTO PLAY
-=================================== */
+/* ===========================
+   AUTO PLAY MUSIC
+=========================== */
 
-window.addEventListener("click",()=>{
+window.addEventListener("click",function(){
 
-if(!playing){
+    if(!playing){
 
-music.play();
+        music.play().catch(function(){});
 
-musicBtn.innerHTML="⏸ Pause Music";
+        musicBtn.innerHTML="⏸ Pause Music";
 
-playing=true;
+        playing=true;
 
-}
+    }
 
 },{once:true});
 
 
-/* ===================================
-      BIRTHDAY CAKE SURPRISE
-=================================== */
+/* ===========================
+   BIRTHDAY CAKE
+=========================== */
 
-setTimeout(()=>{
+setTimeout(function(){
 
-const cake=document.createElement("div");
+    const cake=document.createElement("div");
 
-cake.innerHTML="🎂";
+    cake.innerHTML="🎂";
 
-cake.style.position="fixed";
+    cake.style.position="fixed";
+    cake.style.left="20px";
+    cake.style.bottom="20px";
+    cake.style.fontSize="70px";
+    cake.style.zIndex="999";
 
-cake.style.bottom="20px";
-
-cake.style.left="20px";
-
-cake.style.fontSize="70px";
-
-cake.style.zIndex="999";
-
-cake.style.animation="popup .8s ease";
-
-document.body.appendChild(cake);
+    document.body.appendChild(cake);
 
 },5000);
 
 
-/* ===================================
-      LOVE QUOTES
-=================================== */
+/* ===========================
+   INITIAL SLIDE
+=========================== */
 
-const quotes=[
-
-"❤️ You are my favourite person.",
-
-"💙 Every day with you is special.",
-
-"❄️ My Frozen Princess Forever.",
-
-"🌹 Your smile lights up my world.",
-
-"🎂 Happy Birthday My Love."
-
-];
-
-let q=0;
-
-setInterval(()=>{
-
-typing.innerHTML=quotes[q];
-
-q++;
-
-if(q>=quotes.length){
-
-q=0;
-
-}
-
-},15000);
+showSlide(0);
