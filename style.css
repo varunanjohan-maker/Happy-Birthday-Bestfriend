@@ -474,3 +474,163 @@ body::before{
     }
 
 }
+/* ===========================
+   GLOW ANIMATION
+=========================== */
+
+.glass{
+
+    animation:glow 3s infinite alternate;
+
+}
+
+@keyframes glow{
+
+    from{
+
+        box-shadow:0 0 20px rgba(0,220,255,.35);
+
+    }
+
+    to{
+
+        box-shadow:0 0 45px rgba(0,220,255,.8);
+
+    }
+
+}
+
+/* ===========================
+   IMAGE HOVER
+=========================== */
+
+#slideImage:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:0 0 40px rgba(255,255,255,.8);
+
+}
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#02131d;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#35dfff;
+
+    border-radius:10px;
+
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media(max-width:768px){
+
+.glass{
+
+    padding:20px;
+
+}
+
+.glass h1{
+
+    font-size:48px;
+
+}
+
+.glass h2{
+
+    font-size:24px;
+
+}
+
+#typing{
+
+    font-size:16px;
+
+    min-height:100px;
+
+}
+
+#countdown{
+
+    font-size:22px;
+
+}
+
+.slideshow{
+
+    flex-direction:column;
+
+}
+
+#slideImage{
+
+    width:95%;
+
+    max-width:300px;
+
+    height:400px;
+
+}
+
+.nav{
+
+    width:50px;
+
+    height:50px;
+
+    font-size:24px;
+
+}
+
+.popup-content{
+
+    width:95%;
+
+    padding:20px;
+
+}
+
+.popup-content p{
+
+    font-size:16px;
+
+}
+
+#giftBtn,
+#musicBtn{
+
+    width:100%;
+
+    font-size:17px;
+
+}
+
+}
+
+/* ===========================
+   FOOTER SPACE
+=========================== */
+
+.hero{
+
+    padding-bottom:80px;
+
+}
